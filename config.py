@@ -20,6 +20,13 @@ TEST_PATH = "test_images_512"
 dataframe = pd.read_csv(TRAIN_LABEL_PATH) # has form of (image_name, species, unique_id)
 CLASSES = list(dataframe.groupby("species").groups.keys()) # has 30 classes
 
+# key: image_name
+# value: label
+FILENAME_CLASS_PAIR = {}
+
+for index, row in dataframe.iterrows():
+    FILENAME_CLASS_PAIR[row["image"]] = row["species"]
+
 # build class directories for training and validation datasets
 for split in (TRAIN_PATH, VAL_PATH):
     for label in CLASSES:
