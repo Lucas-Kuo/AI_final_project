@@ -47,6 +47,9 @@ IMG_SHAPE = IMG_SIZE + (3, )
 # set the batch size
 BATCH_SIZE = 32
 
+# set the split proportion
+VAL_SPLIT = 0.1
+
 # initialize our number of epochs, initial learning rate
 NUM_EPOCHS = 30
 INIT_LR = 1e-3
