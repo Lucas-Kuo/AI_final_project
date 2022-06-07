@@ -78,7 +78,7 @@ def load_test_dataset():
     dataset = (dataset
         .map(load_images_test, num_parallel_calls=AUTOTUNE)
         .cache()
-        .batch(config.BS)
+        .batch(config.BATCH_SIZE)
         .prefetch(AUTOTUNE)
     )
     return dataset
