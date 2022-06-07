@@ -1,6 +1,7 @@
 # inport necessary packages
 import os
 import pandas as pd
+import numpy as np
 
 # initialize the path to the *original* input directory of images
 ORIG_INPUT_DATASET = "train_images_512"
@@ -29,6 +30,8 @@ for index, row in dataframe.iterrows():
     if row["species"] not in CLASSES:
         CLASSES.append(row["species"])
 
+CLASSES = np.array(sorted(config.CLASSES))
+        
 # build class directories for training and validation datasets
 for split in (TRAIN_PATH, VAL_PATH):
     for label in CLASSES:
