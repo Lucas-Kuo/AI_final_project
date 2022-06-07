@@ -19,17 +19,17 @@ def load_images(imagePath):
     # return the image and the integer encoded label
     return (image, encodedLabel)
 
+def to_double_input(image, label):
+    return ((image, label), label)
+
 def load_images_test(imagePath):
     # read the image from disk, decode it, resize it, and scale the
-    # pixels intensities to the range [0, 1]
+	# pixels intensities to the range [0, 1]
     image = tf.io.read_file(imagePath)
     image = tf.image.decode_jpeg(image, channels=3)
     image = tf.image.resize(image, config.IMG_SIZE) / 255.0
     # return the image and the integer encoded label
-    return (image, )
-
-def to_double_input(image, label): # For ArcFace
-    return ([image, label], label)
+    return (image, None)
 
 @tf.function
 def augment(image, label):
@@ -56,7 +56,7 @@ def load_dataset(subset="training"): # for training and validation
             .shuffle(len(imagePaths))
             .map(load_images, num_parallel_calls=AUTOTUNE)
             .map(augment, num_parallel_calls=AUTOTUNE)
-            .map(to_double_input)
+            .map(to_double_input, num_parallel_calls=AUTOTUNE)
             .cache()
             .batch(config.BATCH_SIZE)
             .prefetch(AUTOTUNE)
@@ -64,6 +64,7 @@ def load_dataset(subset="training"): # for training and validation
     elif subset=="validation":
         dataset = (dataset
             .map(load_images, num_parallel_calls=AUTOTUNE)
+            .map(to_double_input, num_parallel_calls=AUTOTUNE)
             .cache()
             .batch(config.BATCH_SIZE)
             .prefetch(AUTOTUNE)
@@ -71,7 +72,7 @@ def load_dataset(subset="training"): # for training and validation
     return dataset
 
 def load_test_dataset():
-    print(f"[INFO]loading testing data...")
+    print(f"[INFO] loading testing data...")
     imagePaths = list(paths.list_images(config.TEST_PATH))
     print("[INFO] creating a tf.data input pipeline...")
     dataset = tf.data.Dataset.from_tensor_slices(imagePaths)
