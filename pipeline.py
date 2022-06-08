@@ -17,7 +17,7 @@ def load_images(imagePath):
     oneHot = label == config.CLASSES # [0, 0, ..., 0, 1, 0, ..., 0]
     encodedLabel = tf.argmax(oneHot)
     # return the image and the integer encoded label
-    return (image, encodedLabel)
+    return (image, oneHot)
 
 def to_double_input(image, label):
     return ((image, label), label)
