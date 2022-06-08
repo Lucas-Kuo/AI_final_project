@@ -30,7 +30,7 @@ for index, row in dataframe.iterrows():
     if row["species"] not in CLASSES:
         CLASSES.append(row["species"])
 
-CLASSES = np.array(sorted(config.CLASSES))
+CLASSES = np.array(sorted(CLASSES))
         
 # build class directories for training and validation datasets
 for split in (TRAIN_PATH, VAL_PATH):
