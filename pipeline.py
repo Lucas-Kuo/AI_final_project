@@ -56,6 +56,35 @@ def load_dataset(subset="training"): # for training and validation
             .shuffle(len(imagePaths))
             .map(load_images, num_parallel_calls=AUTOTUNE)
             .map(augment, num_parallel_calls=AUTOTUNE)
+            .cache()
+            .batch(config.BATCH_SIZE)
+            .prefetch(AUTOTUNE)
+        )
+    elif subset=="validation":
+        dataset = (dataset
+            .map(load_images, num_parallel_calls=AUTOTUNE)
+            .cache()
+            .batch(config.BATCH_SIZE)
+            .prefetch(AUTOTUNE)
+        )
+    return dataset
+
+def load_dataset_arc(subset="training"): # for arcface top
+    print(f"[INFO] loading image paths for {subset} subset...")
+    if subset=="training":
+        imagePaths = list(paths.list_images(config.TRAIN_PATH))
+    elif subset=="validation":
+        imagePaths = list(paths.list_images(config.VAL_PATH))
+    else:
+        raise ValueError(f"Parameter \'subset\' accepts either \'training\' or \'validation\', but \'{subset}\' was given.")
+
+    print("[INFO] creating a tf.data input pipeline..")
+    dataset = tf.data.Dataset.from_tensor_slices(imagePaths)
+    if subset=="training":
+        dataset = (dataset
+            .shuffle(len(imagePaths))
+            .map(load_images, num_parallel_calls=AUTOTUNE)
+            .map(augment, num_parallel_calls=AUTOTUNE)
             .map(to_double_input, num_parallel_calls=AUTOTUNE)
             .cache()
             .batch(config.BATCH_SIZE)
@@ -70,6 +99,7 @@ def load_dataset(subset="training"): # for training and validation
             .prefetch(AUTOTUNE)
         )
     return dataset
+
 
 def load_test_dataset():
     print(f"[INFO] loading testing data...")
