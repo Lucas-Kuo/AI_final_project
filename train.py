@@ -1,3 +1,6 @@
+# usage example: python train.py --model vgg --trainModel top
+# usage example: python train.py --model res --trainModel full
+
 import argparse
 import tensorflow as tf
 from tensorflow.keras.applications.vgg16 import VGG16
