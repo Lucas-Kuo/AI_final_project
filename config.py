@@ -4,7 +4,7 @@ import pandas as pd
 import numpy as np
 
 # initialize the path to the *original* input directory of images
-ORIG_INPUT_DATASET = "train_images_512"
+ORIG_INPUT_DATASET = "train_images_128"
 
 TRAIN_LABEL_PATH = "train.csv"
 
@@ -15,7 +15,7 @@ BASE_PATH = "dataset"
 # derive the training, validation, and testing directories
 TRAIN_PATH = os.path.sep.join([BASE_PATH, "training"])
 VAL_PATH = os.path.sep.join([BASE_PATH, "validation"])
-TEST_PATH = "test_images_512"
+TEST_PATH = "test_images_128"
 
 # initialize the list of class label names
 dataframe = pd.read_csv(TRAIN_LABEL_PATH) # has form of (image_name, species, unique_id)
@@ -41,7 +41,7 @@ for split in (TRAIN_PATH, VAL_PATH):
             os.makedirs(label_directory)
 
 # set the image size and shape
-IMG_SIZE = (512, 512)
+IMG_SIZE = (128, 128)
 IMG_SHAPE = IMG_SIZE + (3, )
 
 # set the batch size
