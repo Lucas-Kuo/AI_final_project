@@ -107,7 +107,7 @@ else:
     raise ValueError(f'Please specify which part of the model to train ({args["trainModel"]} was given)')
     
 print("[INFO] compiling model...")
-opt = SGD(lr=config.INIT_LR, momentum=0.9) if args["trainModel"]=="top" else RMSprop(learning_rate=config.INIT_LR/10)
+opt = SGD(learning_rate=config.INIT_LR, momentum=0.9) if args["trainModel"]=="top" else RMSprop(learning_rate=config.INIT_LR/10)
 loss = CategoricalCrossentropy(name='categorical_crossentropy')
 acc = Accuracy(name='accuracy')
 top5acc = TopKCategoricalAccuracy(k=5, name='top_5_categorical_accuracy')
