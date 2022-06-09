@@ -41,7 +41,7 @@ for split in (TRAIN_PATH, VAL_PATH):
             os.makedirs(label_directory)
 
 # set the image size and shape
-IMG_SIZE = (128, 128)
+IMG_SIZE = (120, 120)
 IMG_SHAPE = IMG_SIZE + (3, )
 
 # set the batch size
