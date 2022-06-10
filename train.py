@@ -48,7 +48,7 @@ def plot_graph(history, model):
     plt.plot(val_loss, label='Validation Loss')
     plt.legend(loc='upper right')
     plt.ylabel('Cross Entropy')
-    plt.ylim([0, 3.0])
+    plt.ylim([0, max(plt.ylim())*1.1])
     plt.title('Training and Validation Loss')
     plt.xlabel('epoch')
     plt.savefig(f"{model}_training_curve.jpg")
