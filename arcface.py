@@ -12,6 +12,10 @@ class ArcFace(Layer):
         self.m = m
         self.regularizer = regularizers.get(regularizer)
 
+    def get_config(self):
+        config = super().get_config()
+        return config
+
     def build(self, input_shape):
         super(ArcFace, self).build(input_shape[0])
         self.W = self.add_weight(name='W',
