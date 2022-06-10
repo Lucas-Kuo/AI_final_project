@@ -27,7 +27,7 @@ FILENAME_CLASS_PAIR = {}
 
 for index, row in dataframe.iterrows():
     FILENAME_CLASS_PAIR[row["image"]] = row["individual_id"]
-    if row["species"] not in CLASSES:
+    if row["individual_id"] not in CLASSES:
         CLASSES.append(row["individual_id"])
 
 CLASSES = np.array(sorted(CLASSES))
