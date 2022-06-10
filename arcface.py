@@ -13,7 +13,7 @@ class ArcFace(Layer):
         self.regularizer = regularizers.get(regularizer)
 
     def get_config(self):
-        config = super().get_config()
+        config = super(ArcFace, self).get_config()
         config.update({
             "n_classes": self.n_classes,
             "s": self.s,
