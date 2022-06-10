@@ -64,7 +64,7 @@ args = vars(ap.parse_args())
 trainDS = pipeline.load_dataset(subset="training")
 
 # load validation dataset
-valDS = pipeline.load_dataset(subset="validation")
+# valDS = pipeline.load_dataset(subset="validation")
 
 base_model = tf.keras.applications.efficientnet.EfficientNetB7(
     include_top=False,
@@ -102,7 +102,7 @@ else:
 
 
 print("[INFO] compiling model...")
-opt = SGD(learning_rate=config.INIT_LR, momentum=0.9) if args["trainModel"]=="top" else RMSprop(learning_rate=config.INIT_LR)
+opt = SGD(learning_rate=config.INIT_LR*10, momentum=0.9) if args["trainModel"]=="top" else RMSprop(learning_rate=config.INIT_LR)
 loss = CategoricalCrossentropy(name='categorical_crossentropy')
 acc = Accuracy(name='accuracy')
 top5acc = TopKCategoricalAccuracy(k=5, name='top_5_categorical_accuracy')
@@ -112,15 +112,13 @@ model.summary()
 
 checkpoint_callback = ModelCheckpoint(
     previous_weights,
-    monitor="val_accuracy",
-    save_best_only=True,
 )
 
 # model training with checkpoint saving
 print("[INFO] training model...")
 history = model.fit(
     x=trainDS,
-    validation_data=valDS,
+#     validation_data=valDS,
     epochs=config.NUM_EPOCHS,
     callbacks=[checkpoint_callback],
     verbose=1
