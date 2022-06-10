@@ -18,6 +18,7 @@ import os
 import json
 import config
 import pipeline
+import argparse
 
 # plot out the training result, including loss(cross entropy) and accuracy
 def plot_graph(history, model):
