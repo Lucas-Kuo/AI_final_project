@@ -77,7 +77,7 @@ headModel = base_model.output
 headModel = BatchNormalization()(headModel)
 headModel = Dropout(0.5)(headModel)
 headModel = Flatten()(headModel)
-headModel = Dense(512, activation="relu")(headModel)
+headModel = Dense(256, activation="relu")(headModel)
 headModel = BatchNormalization()(headModel)
 output = ArcFace(n_classes=len(config.CLASSES))([headModel, label])
 
@@ -102,7 +102,7 @@ else:
     raise ValueError(f'Please specify which part of the model to train ({args["trainModel"]} was given)')
     
 print("[INFO] compiling model...")
-opt = SGD(learning_rate=config.INIT_LR, momentum=0.9) if args["trainModel"]=="top" else RMSprop(learning_rate=config.INIT_LR/10)
+opt = SGD(learning_rate=config.INIT_LR*10, momentum=0.9) if args["trainModel"]=="top" else RMSprop(learning_rate=config.INIT_LR)
 loss = CategoricalCrossentropy(name='categorical_crossentropy')
 acc = Accuracy(name='accuracy')
 top5acc = TopKCategoricalAccuracy(k=5, name='top_5_categorical_accuracy')
