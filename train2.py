@@ -79,7 +79,7 @@ headModel = Dropout(0.5)(headModel)
 headModel = Flatten()(headModel)
 headModel = Dense(512, activation="relu")(headModel)
 headModel = BatchNormalization()(headModel)
-output = ArcFace(num_classes=len(config.CLASSES))([headModel, label])
+output = ArcFace(n_classes=len(config.CLASSES))([headModel, label])
 
 model = Model([base_model.input, label], output)
 
