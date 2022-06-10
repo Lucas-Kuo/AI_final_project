@@ -95,6 +95,13 @@ headModel = Dense(len(config.CLASSES), activation="softmax")(headModel)
 # the actual model we will train)
 model = Model(inputs=base_model.input, outputs=headModel)
 
+previous_weights = f'{args["model"]}_weights.h5'
+if os.path.exists(previous_weights):
+    print("[INFO] automatically loading previous weights:", previous_weights)
+    model = load_model(previous_weights)
+else:
+    print(f'[INFO] no previous weights detected for {args["model"]} model, will train from scratch...')
+
 # loop over all layers in the base model and freeze them so they will
 # *not* be updated during the first training process
 if args["trainModel"]=="top":
@@ -111,13 +118,6 @@ opt = SGD(learning_rate=config.INIT_LR, momentum=0.9) if args["trainModel"]=="to
 loss = CategoricalCrossentropy(name='categorical_crossentropy')
 acc = Accuracy(name='accuracy')
 top5acc = TopKCategoricalAccuracy(k=5, name='top_5_categorical_accuracy')
-
-previous_weights = f'{args["model"]}_weights.h5'
-if os.path.exists(previous_weights):
-    print("[INFO] automatically loading previous weights:", previous_weights)
-    model = load_model(previous_weights)
-else:
-    print(f'[INFO] no previous weights detected for {args["model"]} model, will train from scratch...')
 
 model.compile(loss=loss, optimizer=opt, metrics=[acc, top5acc])
 print(model.summary())
