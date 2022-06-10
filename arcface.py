@@ -14,6 +14,12 @@ class ArcFace(Layer):
 
     def get_config(self):
         config = super().get_config()
+        config.update({
+            "n_classes": self.n_classes,
+            "s": self.s,
+            "m": self.m,
+            "regularizer": self.regularizer,
+        })
         return config
 
     def build(self, input_shape):
