@@ -94,7 +94,7 @@ else:
 
 
 print("[INFO] compiling model...")
-opt = Adam(learning_rate=config.INIT_LR) if args["trainModel"]=="top" else RMSprop(learning_rate=config.INIT_LR)
+opt = Adam(learning_rate=config.INIT_LR) if args["trainModel"]=="top" else Adam(learning_rate=config.INIT_LR)
 loss = CategoricalCrossentropy(name='categorical_crossentropy')
 acc = Accuracy(name='accuracy')
 top5acc = TopKCategoricalAccuracy(k=5, name='top_5_categorical_accuracy')
