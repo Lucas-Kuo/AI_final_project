@@ -22,10 +22,39 @@ First, we should download the resized dataset from Kaggle from the [website](htt
 kaggle datasets download -d bryanb/happy-whale-and-dolphin-resized --unzip
 ```
 
+Also, download the training labels from Kaggle competition with:
+
+```
+kaggle competitions download happy-whale-and-dolphin -f train.csv
+
+unzip train.csv.zip
+```
+Be sure that you have set your Kaggle account and personal API key (kaggle.json) before you use any Kaggle API.
+For more information, please refer to the [official documentation](https://github.com/Kaggle/kaggle-api).
+However, it is also possible for you to download train.csv directly from the [original competition datasest](https://www.kaggle.com/competitions/happy-whale-and-dolphin/data?select=train.csv).
+
 Then, we're going to build the dataset for our tf.data pipeline using:
 
 ```
 python3 build_dataset.py
+```
+Make sure you have the following data structure (including but not limited to):
+
+```
+.
+├── dataset
+│   ├── training [30 entries exceeds filelimit, not opening dir]
+│   └── validation [30 entries exceeds filelimit, not opening dir]
+├── train_images_128 [51034 entries exceeds filelimit, not opening dir]
+├── arcface.py
+├── build_dataset.py
+├── config.py
+├── pipeline.py
+├── README.md
+├── train2.py
+├── train.csv
+├── train.csv.zip
+└── train.py
 ```
 
 Finally, we can train our model with some parameters:
@@ -35,7 +64,7 @@ python3 train.py --model {vgg/res} --trainModel {top/full}
 ```
 The model parameter indicates the base model to choose.
 
-The trainModel parameter controlls whether to freeze the base model in order to implement transfer learning.
+The trainModel parameter controls whether to freeze the base model in order to implement transfer learning.
 
 ## Hyperparameter Setting
 You can set the hyperparameter in [config.py](https://github.com/Lucas-Kuo/AI_final_project/blob/main/config.py).
