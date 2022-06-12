@@ -9,7 +9,7 @@ We'll also proposed a method to deal with such difficulty.
 
 ## Environment Setting
 The `requirements.txt` file lists all Python libraries and versions that your local
-environment should be equipped with, and they will be installed using:
+environment should be equipped with and they will be installed using:
 
 ```
 pip install -r requirements.txt
