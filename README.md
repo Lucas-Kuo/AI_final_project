@@ -66,6 +66,29 @@ The model parameter indicates the base model to choose.
 
 The trainModel parameter controls whether to freeze the base model in order to implement transfer learning.
 
+For further usage, it is able to build a KNN classifier using:
+
+```
+python3 build_knn.py --model {vgg/res}
+```
+A knn.pickled file will be generated. 
+
+To get the classifier in python, you can use the code snippet below:
+
+```python
+import pickle
+
+with open('knn.pickle', 'rb') as f:
+    neigh = pickle.load(f)
+```
+Then, you can get the KNN result using:
+```python
+model = tf.keras.models.load_model("PREVIOUS_WEIGHT.h5")
+model = tf.keras.models.Model(inputs=model.input, outputs=model.layers[-3].output)
+features = model.predict(trainDS)
+predictions = neigh.predict_proba(features)
+```
+
 ## Hyperparameter Setting
 You can set the hyperparameter in [config.py](https://github.com/Lucas-Kuo/AI_final_project/blob/main/config.py).
 Initially,
