@@ -76,3 +76,10 @@ Initially,
 -  number of epochs to train can be set as you want, initially set to 30
 
 ## Experiment Results
+
+| Model    | Top-1 Accuracy | Top-5 Accuracy |
+|----------|----------------|----------------|
+| Baseline | 0.0011         | 0.7026         |
+| ResNet50 | 0.0013         | 0.7358         |
+
+
