@@ -12,22 +12,22 @@ The `requirements.txt` file lists all Python libraries and versions that your lo
 environment should be equipped with and they will be installed using:
 
 ```
-pip install -r requirements.txt
+$ pip3 install -r requirements.txt
 ```
 
 ## Usage
 First, we should download the resized dataset from Kaggle from the [website](https://www.kaggle.com/datasets/bryanb/happy-whale-and-dolphin-resized) or using:
 
 ```
-kaggle datasets download -d bryanb/happy-whale-and-dolphin-resized --unzip
+$ kaggle datasets download -d bryanb/happy-whale-and-dolphin-resized --unzip
 ```
 
 Also, download the training labels from Kaggle competition with:
 
 ```
-kaggle competitions download happy-whale-and-dolphin -f train.csv
+$ kaggle competitions download happy-whale-and-dolphin -f train.csv
 
-unzip train.csv.zip
+$ unzip train.csv.zip
 ```
 Be sure that you have set your Kaggle account and personal API key (kaggle.json) before you use any Kaggle API.
 For more information, please refer to the [official documentation](https://github.com/Kaggle/kaggle-api).
@@ -36,7 +36,7 @@ However, it is also possible for you to download train.csv directly from the [or
 Then, we're going to build the dataset for our tf.data pipeline using:
 
 ```
-python3 build_dataset.py
+$ python3 build_dataset.py
 ```
 Make sure you have the following data structure (including but not limited to):
 
@@ -60,7 +60,7 @@ Make sure you have the following data structure (including but not limited to):
 Finally, we can train our model with some parameters:
 
 ```
-python3 train.py --model {vgg/res} --trainModel {top/full}
+$ python3 train.py --model {vgg/res} --trainModel {top/full}
 ```
 The model parameter indicates the base model to choose.
 
@@ -69,7 +69,7 @@ The trainModel parameter controls whether to freeze the base model in order to i
 For further usage, it is able to build a KNN classifier using:
 
 ```
-python3 build_knn.py --model {vgg/res}
+$ python3 build_knn.py --model {vgg/res}
 ```
 A knn.pickled file will be generated. 
 
