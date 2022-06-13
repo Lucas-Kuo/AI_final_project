@@ -1,5 +1,6 @@
 from sklearn.neighbors import KNeighborsClassifier
 from tensorflow.keras.models import load_model, Model
+from tensorflow.data import Dataset
 import numpy as np
 import os
 import config
@@ -28,7 +29,8 @@ model = Model(inputs=model.input, outputs=model.layers[-3].output)
 features = model.predict(trainDS)
 
 # label encoding
-labels = np.argmax(trainDS, axis=-1)
+labels = list(trainDS.flat_map(lambda x, y: Dataset.from_tensor_slices(y)).as_numpy_iterator())
+labels = np.argmax(labels, axis=-1) # one hot --> 0~29
 
 # initialize KNN
 neigh = KNeighborsClassifier(n_neighbors=55)
